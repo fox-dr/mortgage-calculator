@@ -85,7 +85,9 @@ const App = () => {
 
   useEffect(() => {
     if (selectedUnit) {
-      setPropertyTaxYearly(selectedUnit.price * selectedUnit.tax_rate);
+      // Round the yearly tax value to the nearest dollar to prevent floating-point errors
+      const calculatedTax = selectedUnit.price * selectedUnit.tax_rate;
+      setPropertyTaxYearly(Math.round(calculatedTax));
     }
   }, [selectedUnit]);
 
@@ -112,7 +114,7 @@ const App = () => {
     }
     setPrincipalInterest(monthlyPI);
 
-    const monthlyTaxAmount = propertyTaxYearly / 12;
+    const monthlyTaxAmount = Math.round(propertyTaxYearly / 12);
     const monthlyInsuranceAmount = insuranceYearly / 12;
     setMonthlyTax(monthlyTaxAmount);
     setMonthlyInsurance(monthlyInsuranceAmount);
