@@ -21,24 +21,8 @@ const CalculatorView = ({
   options,
   taxRate,
 }) => {
-  const hasPrice = selectedUnit && selectedUnit.price > 0;
-  const unitLabel = selectedUnit
-    ? [selectedUnit.unit_id, selectedUnit.plan].filter(Boolean).join(' • ')
-    : '';
-
-  if (!hasPrice) {
-    return (
-      <div className="w-full text-center text-gray-700 space-y-4">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight">
-          Mortgage Calculator
-        </h1>
-        <p className="text-gray-600 max-w-md mx-auto">
-          Waiting for a home price. Pass a price via URL (e.g. <code>?price=650000</code>) or call{' '}
-          <code>window.setCalculatorUnit(&#123; price: 650000, unit_id: 'Lot-12', plan: 'Plan-A' &#125;)</code> once the page loads.
-        </p>
-      </div>
-    );
-  }
+  const safeUnit = selectedUnit || { price: 0, unit_id: '', plan: '' };
+  const unitLabel = [safeUnit.unit_id, safeUnit.plan].filter(Boolean).join(' - ');
 
   return (
     <>
@@ -90,7 +74,7 @@ const CalculatorView = ({
               <input
                 type="text"
                 id="price"
-                value={selectedUnit.price.toLocaleString('en-US')}
+                value={safeUnit.price.toLocaleString('en-US')}
                 readOnly
                 className="block w-full rounded-lg border-0 py-2 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6 transition-colors duration-200 bg-gray-200"
               />

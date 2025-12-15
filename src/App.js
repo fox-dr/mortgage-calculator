@@ -7,7 +7,12 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const DEFAULT_TAX_RATE = 0.0125; // 1.25% generic tax rate
 
 const App = () => {
-  const [selectedUnit, setSelectedUnit] = useState(null);
+  // Default price so the calculator works out of the box; adjust as needed.
+  const [selectedUnit, setSelectedUnit] = useState({
+    price: 700000,
+    unit_id: '',
+    plan: '',
+  });
 
   // user inputs
   const [downPaymentPercent, setDownPaymentPercent] = useState(20);
@@ -33,7 +38,8 @@ const App = () => {
     };
   };
 
-  // Support URL param ingestion: ?price=650000&unit_id=Lot-12&plan=Plan-A
+  // URL param ingestion is intentionally commented out; uncomment to enable:
+  /*
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const price = searchParams.get('price');
@@ -47,6 +53,7 @@ const App = () => {
       setSelectedUnit(unitFromUrl);
     }
   }, []);
+  */
 
   // Expose a global setter for marketing pages to inject pricing dynamically.
   useEffect(() => {
