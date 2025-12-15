@@ -27,6 +27,13 @@ npm start
 ```
 Open http://localhost:3000. Default price is $700,000; use the global setter to override during testing.
 
+## Active files (what to keep)
+- App + UI: `src/App.js`, `src/CalculatorView.js`, `src/index.js`, `src/index.css`
+- Public assets: `public/index.html`, `public/company-logo.png`, `public/favicon.ico`, `public/robots.txt`
+- Project metadata: `package.json`, `package-lock.json`
+
+Removed CRA defaults: map views, backup App files, test boilerplate, PWA manifest, and default CRA icons.
+
 ## File references
 - `src/App.js`: Calculator-only app, URL param parsing, `window.setCalculatorUnit`, tax rate constant.
 - `src/CalculatorView.js`: Main UI, tax disclaimer, commented “Choose Another Home” button stub.
